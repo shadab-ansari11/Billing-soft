@@ -17,7 +17,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <StyledEngineProvider injectFirst>

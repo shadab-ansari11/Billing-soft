@@ -1,7 +1,4 @@
-import Loadable from "react-loadable";
-import { Spinner } from "../../components/Loader";
+import React, { lazy } from "react";
 
-export const Login = Loadable({
-  loader: () => import("../../page/Auth/Login"),
-  loading: () => <Spinner />,
-});
+// Lazy load Login page
+export const Login = lazy(() => import("../../page/Auth/Login"));
