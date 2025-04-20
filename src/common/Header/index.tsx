@@ -13,10 +13,14 @@ import BedtimeIcon from "@mui/icons-material/Bedtime";
 import LanguageIcon from "@mui/icons-material/Language";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import Grid from "@mui/material/Grid";
+import { logout } from "../../redux/user/auth";
+import {useDispatch} from 'react-redux';
+
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState<any>(null);
   const [modeIcon, setModeIcon] = useState(true);
+  const dispatch = useDispatch();
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -28,6 +32,9 @@ const Header = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handlLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -53,7 +60,7 @@ const Header = () => {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Billing Soft
                 </Typography>
-                <Link href="#" sx={{ textDecoration: "none", marginRight: 2 }}>
+                <Link onClick={handlLogout} href="#" sx={{ textDecoration: "none", marginRight: 2 }} >
                   My Invoice
                 </Link>
                 <Link href="#" sx={{ textDecoration: "none", marginRight: 2 }}>
