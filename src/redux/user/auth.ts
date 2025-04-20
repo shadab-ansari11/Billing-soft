@@ -1,18 +1,15 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {useAppDispatch} from "../../redux/store";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface IUserState {
+  userInfo: string;
   token: string;
-  fullName?: string;
   isLoggedIn: boolean;
-
-  userInfo?: any;
 }
 
 const initialState: IUserState = {
+  userInfo: "",
   token: "",
   isLoggedIn: false,
-  userInfo: null,
 };
 
 interface IPayload {
@@ -25,53 +22,23 @@ interface IAction {
   payload: IPayload;
   type: string;
 }
-const authSlice = createSlice({
+const AuthSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUserCredential: (state, action: IAction) => {
-      const newState = state;
-      newState.isLoggedIn = action.payload.isLoggedIn;
-      newState.token = action.payload.token;
+    login: (state: any, action: IAction) => {
+      state.userInfo = action.payload.userInfo;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
     },
-    setUserInfo: (state, action: IAction) => {
-      const newState = state;
-      const { userInfo } = action.payload;
-      let newData: any = null;
-
-      if (userInfo?.role === 1) {
-        newData = {
-          ...userInfo,
-          profilePic: userInfo?.additionalData?.profilePic,
-          about: userInfo?.additionalData?.about,
-          degree: userInfo?.additionalData?.degree,
-          accessPrivacy: userInfo?.additionalData?.accessPrivacy,
-        };
-      }
-      if (userInfo?.role === 2) {
-        newData = {
-          ...userInfo,
-          profilePic: userInfo?.additionalData?.profilePic,
-          coverPic: userInfo?.additionalData?.coverPic,
-          about: userInfo?.additionalData?.about,
-          degree: userInfo?.additionalData?.degree,
-          accessPrivacy: userInfo?.additionalData?.accessPrivacy,
-        };
-      }
-      newState.userInfo = newData;
+    logout: (state: any) => {
+      state.userInfo = "";
+      state.token = "";
+      state.isLoggedIn = false;
     },
   },
 });
 
-export const { setUserCredential, setUserInfo } = authSlice.actions;
+export const { login, logout } = AuthSlice.actions;
 
-export const useAuthActions = () => {
-  const dispatch = useAppDispatch();
-  return {
-    setUserCredential: (payload: IPayload) =>
-      dispatch(setUserCredential(payload)),
-    setUserInfo: (payload: IPayload) => dispatch(setUserInfo(payload)),
-  };
-};
-const { reducer } = authSlice;
-export default reducer;
+export default AuthSlice.reducer;
