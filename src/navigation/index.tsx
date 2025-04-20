@@ -12,7 +12,7 @@ import { Spinner } from "../components/Loader";
 
 function Application() {
   const { isLoggedIn } = useUserInfo();
-  console.log(isLoggedIn);
+  console.log("isLoggedIn", isLoggedIn);
   const [spinnerLoad, setSpinnerLoad] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,8 +26,14 @@ function Application() {
   return (
     <Suspense fallback={spinnerLoad ? <Spinner /> : null}>
       <Routes>
-      <Route path={AppRoutes.DASHBOARD} element={<AdmminLoad.Dashboard />} />
-        {/* <Route path={AppRoutes.LOGIN} element={<AuthLoadable.Login />} /> */}
+        {isLoggedIn ? (
+          <Route
+            path={AppRoutes.DASHBOARD}
+            element={<AdmminLoad.Dashboard />}
+          />
+        ) : (
+          <Route path={AppRoutes.LOGIN} element={<AuthLoadable.Login />} />
+        )}
       </Routes>
     </Suspense>
   );
