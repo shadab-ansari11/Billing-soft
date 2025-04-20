@@ -1,7 +1,3 @@
-import Loadable from "react-loadable";
-import { Spinner } from "../../components/Loader";
+import React, {lazy} from 'react';
 
-// export const Dashboard = Loadable({
-//   loader: () => import(),
-//   loading: () => <Spinner />,
-// });
+export const Dashboard = lazy(()=>import('../../components/Dashboard'))
