@@ -5,6 +5,7 @@ import useUserInfo from "../hooks/useUserInfo";
 import { Route, Routes } from "react-router-dom";
 // import * as AdminLoadable from "./ScreenContainer/AdminLoad"
 import * as AuthLoadable from "./ScreenContainer/AuthLoad";
+import * as AdmminLoad from "./ScreenContainer/AdminLoad";
 import AppRoutes from "./appRoutes";
 import { Suspense, useEffect, useState } from "react";
 import { Spinner } from "../components/Loader";
@@ -25,7 +26,8 @@ function Application() {
   return (
     <Suspense fallback={spinnerLoad ? <Spinner /> : null}>
       <Routes>
-        <Route path={AppRoutes.LOGIN} element={<AuthLoadable.Login />} />
+      <Route path={AppRoutes.DASHBOARD} element={<AdmminLoad.Dashboard />} />
+        {/* <Route path={AppRoutes.LOGIN} element={<AuthLoadable.Login />} /> */}
       </Routes>
     </Suspense>
   );

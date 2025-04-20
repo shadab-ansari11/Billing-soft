@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import {
   Container,
@@ -12,21 +12,44 @@ import {
 } from "@mui/material";
 import { ILogin } from "interfaces/auth";
 import useForm from "./hooks/useForm";
+import { useAdminLogin, ILoginRequest } from "./hooks/useLogin";
+import { useNavigation } from "react-router-dom";
+import AppRoutes from "../../../navigation/appRoutes";
 
 const initialValues: ILogin = {
   email: "",
   password: "",
 };
 
-const onSubmit = async (values: ILogin) => {
-  if (values.email !== "shadab@gmail.com" || values.password !== "11") {
-    console.log("Invalid credentials");
-  } else {
-    console.log("Login successful");
-  }
-};
+export default function Login() {
+  const navigation: any = useNavigation();
+  const { tryLogin } = useAdminLogin();
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = React.useState(false);
+  const togglePasswordView = () => setShow((s) => !s);
 
-function Login() {
+  const onSubmit = async (values: ILoginRequest) => {
+    setLoading(true);
+    try {
+      const res = await tryLogin(values);
+      if (res) {
+        setTimeout(() => {
+          setLoading(false);
+          navigation(AppRoutes)
+        }, 3000);
+      }
+    } catch (error: any) {
+      console.log("error-->",error)
+      setLoading(false);
+    }
+    resetForm();
+
+    // if (values.email !== "shadab@gmail.com" || values.password !== "11") {
+    //   console.log("Invalid credentials");
+    // } else {
+    //   console.log("Login successful");
+    // }
+  };
   const formik = useForm(onSubmit, initialValues);
   const {
     handleBlur,
@@ -36,6 +59,7 @@ function Login() {
     errors,
     touched,
     isSubmitting,
+    resetForm,
   } = formik;
 
   return (
@@ -83,7 +107,11 @@ function Login() {
             onChange={handleChange}
           />
 
-          <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <FormLabel>Password</FormLabel>
             <Link href="#" sx={{ color: "#999" }} underline="none">
               Forgot password?
@@ -127,5 +155,3 @@ function Login() {
     </Container>
   );
 }
-
-export default Login;
