@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Google as GoogleIcon } from "@mui/icons-material";
+import { Google as GoogleIcon, Password } from "@mui/icons-material";
 import {
   Container,
   Typography,
@@ -12,49 +12,23 @@ import {
   Stack,
   CircularProgress,
   IconButton,
+  Grid,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import useForm from "./hooks/useForm";
-import { useAdminLogin, ILoginRequest } from "./hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "../../../navigation/appRoutes";
 import TextField from "../../../components/Textfield";
 import palette from "../../../theme/palette";
-
-const initialValues: ILoginRequest = {
+import useForm from "../SignUp/hooks/useForm";
+import { ISignUpRequest } from "./hooks/useSignuUp";
+const initialValues: ISignUpRequest = {
+  firstName: "",
+  lastName: "",
   email: "",
   password: "",
 };
-
-export default function Login() {
-  const navigate = useNavigate();
-  const { tryLogin } = useAdminLogin();
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [show, setShow] = React.useState(false);
-  const togglePasswordView = () => setShow((s) => !s);
-
-  const onSubmit = async (values: ILoginRequest) => {
-    setLoading(true);
-    try {
-      const res = await tryLogin(values);
-      if (res) {
-        setTimeout(() => {
-          setLoading(false);
-          navigate(AppRoutes.DASHBOARD);
-        }, 3000);
-      }
-    } catch (error: any) {
-      console.log("error-->", error);
-      setLoading(false);
-    }
-    resetForm();
-  };
-
-  //signup link
-  const handleSignUp = () => {
-    navigate(AppRoutes.SIGNUP);
-  };
+export default function SignUp() {
+  const onSubmit = () => {};
   const formik = useForm(onSubmit, initialValues);
   const {
     handleBlur,
@@ -66,14 +40,12 @@ export default function Login() {
     isSubmitting,
     resetForm,
   } = formik;
-  const handlePasswordToggle = () => setShowPassword((show) => !show);
-
   return (
     <Container
       fixed
       sx={{
         bgcolor: "#fff",
-        minHeight: "100vh",
+        minHeight: "200vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -99,7 +71,7 @@ export default function Login() {
       <Box
         sx={{
           bgcolor: "#fff",
-          width: 400,
+          width: 550,
           p: 4,
           mt: 2,
           borderRadius: 5,
@@ -110,24 +82,72 @@ export default function Login() {
           variant="h4"
           sx={{ color: "black", textAlign: "center", mb: 2 }}
         >
-          Sign In
+          Creat a free account
         </Typography>
         <Typography sx={{ color: "#999", textAlign: "center", mb: 2 }}>
-          Welcome Back!
+          Gain access to more features with a billing soft account.
         </Typography>
 
         <form onSubmit={handleSubmit}>
           <Box
             sx={{
-              maxWidth: "400px",
               width: { lg: "100%", xs: "90%" },
             }}
           >
-            <Box sx={{ color: palette.text.secondary }}>
+            <Box
+              sx={{
+                color: palette.text.secondary,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  marginBottom: "10px",
+                  color: palette.text.text7,
+                }}
+              >
+                <Grid container spacing={2}>
+                  <Grid size={6}>
+                    <TextField
+                      label="Frist Name"
+                      placeholder="Enter your first name"
+                      style={{
+                        width: "100%",
+                        borderRadius: "6px",
+                        boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                      }}
+                      value={values?.firstName}
+                      error={!!touched.firstName && !!errors.firstName}
+                      helperText={
+                        (touched.firstName && errors && errors.firstName) || ""
+                      }
+                      onBlur={handleBlur("firstName")}
+                      onChange={handleChange("firstName")}
+                    />
+                  </Grid>
+                  <Grid size={6}>
+                    <TextField
+                      label="Last Name"
+                      placeholder="Enter your last name"
+                      style={{
+                        width: "100%",
+                        borderRadius: "6px",
+                        boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                      }}
+                      value={values?.lastName}
+                      error={!!touched.lastName && !!errors.lastName}
+                      helperText={
+                        (touched.lastName && errors && errors.lastName) || ""
+                      }
+                      onBlur={handleBlur("lastName")}
+                      onChange={handleChange("lastName")}
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
               <Box sx={{ marginBottom: "10px", color: palette.text.text7 }}>
                 <TextField
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
                   label="Email"
                   placeholder="Enter your email address"
                   style={{
@@ -135,7 +155,9 @@ export default function Login() {
                     borderRadius: "6px",
                     boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                   }}
-                  value={values.email}
+                  value={values?.email}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
                   onBlur={handleBlur("email")}
                   onChange={handleChange("email")}
                 />
@@ -143,15 +165,6 @@ export default function Login() {
               <Stack>
                 <Box sx={{ marginBottom: "20px" }}>
                   <TextField
-                    error={!!touched.password && !!errors.password}
-                    helperText={
-                      (touched.password && errors && errors.password) || ""
-                    }
-                    iconEnd={
-                      <IconButton onClick={handlePasswordToggle}>
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    }
                     label="Password"
                     placeholder="Enter Password"
                     style={{
@@ -159,20 +172,14 @@ export default function Login() {
                       borderRadius: "6px",
                       boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                     }}
-                    type={showPassword ? "text" : "password"}
-                    value={values.password}
+                    value={values?.password}
+                    error={!!touched.password && !!errors.password}
+                    helperText={
+                      (touched.password && errors && errors.password) || ""
+                    }
                     onBlur={handleBlur("password")}
                     onChange={handleChange("password")}
                   />
-                </Box>
-                <Box
-                  display="flex"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                >
-                  <Link href="#" sx={{ color: "#999" }} underline="none">
-                    Forgot password?
-                  </Link>
                 </Box>
               </Stack>
             </Box>
@@ -184,25 +191,12 @@ export default function Login() {
               sx={{ backgroundColor: "#009e74", mt: 2, borderRadius: "8px" }}
               onClick={() => handleSubmit()}
             >
-              {isSubmitting ? (
-                <CircularProgress color="warning" size={22} />
-              ) : (
-                "Sign In"
-              )}
+              Sign Up
             </Button>
           </Box>
         </form>
-
-        <Button
-          fullWidth
-          variant="contained"
-          sx={{ mt: 2, borderRadius: "8px" }}
-        >
-          <GoogleIcon sx={{ mr: 1 }} /> Sign in with Google
-        </Button>
         <Typography sx={{ mt: 2, textAlign: "center", color: "#999" }}>
-          Don't have an account yet?{" "}
-          <Button onClick={handleSignUp}>Sign Up</Button>
+          Already have an account <Button>Sign In</Button>
         </Typography>
       </Box>
     </Container>

@@ -32,7 +32,10 @@ function Application() {
             element={<AdmminLoad.Dashboard />}
           />
         ) : (
-          <Route path={AppRoutes.LOGIN} element={<AuthLoadable.Login />} />
+          <>
+            <Route path={AppRoutes.LOGIN} element={<AuthLoadable.Login />} />
+            <Route path={AppRoutes.SIGNUP} element={<AuthLoadable.SignUp />} />
+          </>
         )}
       </Routes>
     </Suspense>

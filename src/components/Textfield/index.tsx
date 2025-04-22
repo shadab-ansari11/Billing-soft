@@ -45,7 +45,7 @@ interface Props extends InputProps {
 
 const CustomField = styled(InputField)({
   fontFamily: "poppins",
-  fontWeight: 400,
+  fontWeight: 300,
   "& .MuiOutlinedInput-root": {
     "&:hover fieldset": {
       borderColor: "transparent",
@@ -103,8 +103,8 @@ function TextField(props: Props) {
               htmlFor={name}
               sx={{
                 color: "inherit",
-                fontSize: { xs: "1rem", lg: "1.2rem" },
-                fontWeight: "500",
+                fontWeight: "50",
+                mb: 1,
                 ...labelStyle,
               }}
             >
@@ -135,7 +135,7 @@ function TextField(props: Props) {
                     // border: `1px solid ${palette.gray.border_2}`,
                     "&::placeholder": {
                       fontFamily: "inherit",
-                      fontSize: "1.2rem",
+                      fontSize: "1rem",
                       color: palette.text.placeholder,
                       fontWeight: 400,
                       opacity: 1,
@@ -148,13 +148,13 @@ function TextField(props: Props) {
               placeholder={placeholder}
               required={required}
               sx={{
-                backgroundColor: "#fff",
+                backgroundColor: "transparent",
                 fontSize: { xs: "1rem", xl: "1.3rem" },
-                borderRadius: "6px",
-                boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                borderRadius: "8px",
+                boxShadow: "1px 1px 2px rgba(0,0,0,0.05)",
                 border: showBorder
                   ? `1px solid ${palette.gray.border_2}`
-                  : `0px solid ${palette.gray.border_2}`,
+                  : `1px solid ${palette.gray.border_2}`,
                 ...textFieldStyle,
               }}
               type={type}
@@ -235,7 +235,12 @@ function TextField(props: Props) {
       {helperText && (
         <FormHelperText
           id="my-helper-text"
-          sx={{ color: palette.error.dark, fontSize: "10px" }}
+          sx={{
+            color: palette.error.dark,
+            minHeight: "18px", // keep space reserved
+            fontSize: "15px",
+            fontFamily: "poppins",
+          }}
         >
           {helperText}
         </FormHelperText>
