@@ -27,4 +27,6 @@ export interface IOrganization {
   email?: string;
   password: string;
   roleId?: number;
+  firstName: string;
+  lastName: string;
 }
