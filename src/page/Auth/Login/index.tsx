@@ -13,8 +13,6 @@ import {
   CircularProgress,
   IconButton,
 } from "@mui/material";
-import Grid from "@mui/material/Grid";
-
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import useForm from "./hooks/useForm";
 import { useAdminLogin, ILoginRequest } from "./hooks/useLogin";
@@ -22,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import AppRoutes from "../../../navigation/appRoutes";
 import TextField from "../../../components/Textfield";
 import palette from "../../../theme/palette";
-import ReactCardFlip from "react-card-flip";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 
 const initialValues: ILoginRequest = {
   email: "",
@@ -72,68 +70,69 @@ export default function Login() {
 
   return (
     <>
-      <Grid
-        container
-        spacing={2}
-        justifyContent="center"
-        alignItems="center"
-        sx={{
-          padding: 2,
+      <div
+        style={{
+          backgroundColor: "#1565c0",
+          height: "100vh",
+          width: "100%",
         }}
       >
-        <Grid item xs={12} md={5}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Box
             sx={{
-              bgcolor: "#fff",
-              padding: 4,
-              borderRadius: 3,
+              width: "40%",
             }}
           >
+            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+              <ReceiptIcon sx={{ color: "#fff", fontSize: "45px", mt:1}}/>
             <Typography
-              variant="h4"
-              sx={{ color: "black", textAlign: "center", mb: 2 }}
+              variant="h3"
+              sx={{ color: "#fff", textAlign: "center", fontWeight: "400" }}
             >
-              Welcome Back to Billing Soft!
+              BillingSoft.com
             </Typography>
-            <Typography sx={{ color: "black", textAlign: "center" }}>
+            </div>
+            <Typography sx={{ color: "#fff",fontWeight: "400",marginLeft: "45px" }}>
               Manage your invoices with ease.
             </Typography>
           </Box>
-        </Grid>
 
-        <Grid item xs={12} md={5}>
           <Box
             sx={{
               bgcolor: "#fff",
               padding: 4,
               borderRadius: 3,
               boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
+              mt: 2,
+              width: "40%",
             }}
           >
             {/* Rest of your Sign In form remains unchanged */}
-
-            <Typography
-              variant="h4"
-              sx={{ color: "black", textAlign: "center", mb: 2 }}
-            >
-              Sign In
-            </Typography>
-            <Typography sx={{ color: "#999", textAlign: "center", mb: 2 }}>
-              Welcome Back!
-            </Typography>
-
             <form onSubmit={handleSubmit}>
               <Box
                 sx={{
                   width: { lg: "100%", xs: "90%" },
                 }}
               >
+                  <Typography
+              variant="h4"
+              sx={{ textAlign: "center", mb: 2, fontWeight: "400" }}
+            >
+              Sign In
+            </Typography>
                 <Box sx={{ color: palette.text.secondary }}>
                   <Box sx={{ marginBottom: "10px", color: palette.text.text7 }}>
                     <TextField
                       error={!!touched.email && !!errors.email}
                       helperText={
-                        (touched.email && errors && errors.email) || ""
+                        touched.email && errors.email ? errors.email : " "
                       }
                       label="Email"
                       placeholder="Enter your email address"
@@ -152,7 +151,9 @@ export default function Login() {
                       <TextField
                         error={!!touched.password && !!errors.password}
                         helperText={
-                          (touched.password && errors && errors.password) || ""
+                          touched.password && errors.password
+                            ? errors.password
+                            : " "
                         }
                         iconEnd={
                           <IconButton onClick={handlePasswordToggle}>
@@ -206,18 +207,18 @@ export default function Login() {
 
             <Button
               fullWidth
-              variant="contained"
-              sx={{ mt: 2, borderRadius: "8px" }}
+              // variant="contained"
+              sx={{ mt: 2, borderRadius: "8px", backgroundColor: "red", color: "#fff" }}
             >
-              <GoogleIcon sx={{ mr: 1 }} /> Sign in with Google
+              <GoogleIcon sx={{ mr: 1, color: "#fff"}} /> Sign in with Google
             </Button>
             <Typography sx={{ mt: 2, textAlign: "center", color: "#999" }}>
               Don't have an account yet?{" "}
               <Button onClick={handleSignUp}>Sign Up</Button>
             </Typography>
           </Box>
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </>
   );
 }
