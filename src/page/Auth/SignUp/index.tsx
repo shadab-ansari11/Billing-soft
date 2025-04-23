@@ -28,6 +28,7 @@ const initialValues: ISignUpRequest = {
   password: "",
 };
 export default function SignUp() {
+  const navigate = useNavigate();
   const onSubmit = () => {};
   const formik = useForm(onSubmit, initialValues);
   const {
@@ -40,165 +41,171 @@ export default function SignUp() {
     isSubmitting,
     resetForm,
   } = formik;
+  const handleSignIn = () => {
+    navigate(AppRoutes.LOGIN);
+  };
   return (
-    <Container
-      fixed
+    <Grid
+      container
+      spacing={2}
+      justifyContent="center"
+      alignItems="center"
       sx={{
-        bgcolor: "#fff",
-        minHeight: "200vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        pt: 10,
+        padding: 2,
       }}
     >
-      {/* Fixed Heading */}
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          width: "100%",
-          bgcolor: "#fff",
-          pt: 2,
-          pb: 0.5,
-          zIndex: 10,
-        }}
-      >
-        <Typography variant="h4" sx={{ color: "black", textAlign: "center" }}>
-          Billing Soft
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          bgcolor: "#fff",
-          width: 550,
-          p: 4,
-          mt: 2,
-          borderRadius: 5,
-          boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
-        }}
-      >
-        <Typography
-          variant="h4"
-          sx={{ color: "black", textAlign: "center", mb: 2 }}
+      <Grid item xs={12} md={5}>
+        <Box
+          sx={{
+            bgcolor: "#fff",
+            padding: 4,
+            borderRadius: 3,
+          }}
         >
-          Creat a free account
-        </Typography>
-        <Typography sx={{ color: "#999", textAlign: "center", mb: 2 }}>
-          Gain access to more features with a billing soft account.
-        </Typography>
-
-        <form onSubmit={handleSubmit}>
-          <Box
-            sx={{
-              width: { lg: "100%", xs: "90%" },
-            }}
+          <Typography
+            variant="h4"
+            sx={{ color: "black", textAlign: "center", mb: 2 }}
           >
+            Welcome Back to Billing Soft!
+          </Typography>
+          <Typography sx={{ color: "black", textAlign: "center" }}>
+            Manage your invoices with ease.
+          </Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={5}>
+        <Box
+          sx={{
+            bgcolor: "#fff",
+            padding: 4,
+            borderRadius: 3,
+            boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{ color: "black", textAlign: "center", mb: 2 }}
+          >
+            Creat a free account
+          </Typography>
+          <Typography sx={{ color: "#999", textAlign: "center", mb: 2 }}>
+            Gain access to more features with a billing soft account.
+          </Typography>
+
+          <form onSubmit={handleSubmit}>
             <Box
               sx={{
-                color: palette.text.secondary,
-                alignItems: "center",
-                justifyContent: "center",
+                width: { lg: "100%", xs: "90%" },
               }}
             >
               <Box
                 sx={{
-                  marginBottom: "10px",
-                  color: palette.text.text7,
+                  color: palette.text.secondary,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <Grid container spacing={2}>
-                  <Grid size={6}>
-                    <TextField
-                      label="Frist Name"
-                      placeholder="Enter your first name"
-                      style={{
-                        width: "100%",
-                        borderRadius: "6px",
-                        boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
-                      }}
-                      value={values?.firstName}
-                      error={!!touched.firstName && !!errors.firstName}
-                      helperText={
-                        (touched.firstName && errors && errors.firstName) || ""
-                      }
-                      onBlur={handleBlur("firstName")}
-                      onChange={handleChange("firstName")}
-                    />
-                  </Grid>
-                  <Grid size={6}>
-                    <TextField
-                      label="Last Name"
-                      placeholder="Enter your last name"
-                      style={{
-                        width: "100%",
-                        borderRadius: "6px",
-                        boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
-                      }}
-                      value={values?.lastName}
-                      error={!!touched.lastName && !!errors.lastName}
-                      helperText={
-                        (touched.lastName && errors && errors.lastName) || ""
-                      }
-                      onBlur={handleBlur("lastName")}
-                      onChange={handleChange("lastName")}
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-              <Box sx={{ marginBottom: "10px", color: palette.text.text7 }}>
-                <TextField
-                  label="Email"
-                  placeholder="Enter your email address"
-                  style={{
-                    width: "100%",
-                    borderRadius: "6px",
-                    boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                <Box
+                  sx={{
+                    marginBottom: "10px",
+                    color: palette.text.text7,
                   }}
-                  value={values?.email}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  onBlur={handleBlur("email")}
-                  onChange={handleChange("email")}
-                />
-              </Box>
-              <Stack>
-                <Box sx={{ marginBottom: "20px" }}>
+                >
+                  <Grid container spacing={2}>
+                    <Grid size={6}>
+                      <TextField
+                        label="Frist Name"
+                        placeholder="Enter your first name"
+                        style={{
+                          width: "100%",
+                          borderRadius: "6px",
+                          boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                        }}
+                        value={values?.firstName}
+                        error={!!touched.firstName && !!errors.firstName}
+                        helperText={
+                          (touched.firstName && errors && errors.firstName) ||
+                          ""
+                        }
+                        onBlur={handleBlur("firstName")}
+                        onChange={handleChange("firstName")}
+                      />
+                    </Grid>
+                    <Grid size={6}>
+                      <TextField
+                        label="Last Name"
+                        placeholder="Enter your last name"
+                        style={{
+                          width: "100%",
+                          borderRadius: "6px",
+                          boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                        }}
+                        value={values?.lastName}
+                        error={!!touched.lastName && !!errors.lastName}
+                        helperText={
+                          (touched.lastName && errors && errors.lastName) || ""
+                        }
+                        onBlur={handleBlur("lastName")}
+                        onChange={handleChange("lastName")}
+                      />
+                    </Grid>
+                  </Grid>
+                </Box>
+                <Box sx={{ marginBottom: "10px", color: palette.text.text7 }}>
                   <TextField
-                    label="Password"
-                    placeholder="Enter Password"
+                    label="Email"
+                    placeholder="Enter your email address"
                     style={{
                       width: "100%",
                       borderRadius: "6px",
                       boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                     }}
-                    value={values?.password}
-                    error={!!touched.password && !!errors.password}
-                    helperText={
-                      (touched.password && errors && errors.password) || ""
-                    }
-                    onBlur={handleBlur("password")}
-                    onChange={handleChange("password")}
+                    value={values?.email}
+                    error={!!touched.email && !!errors.email}
+                    helperText={(touched.email && errors && errors.email) || ""}
+                    onBlur={handleBlur("email")}
+                    onChange={handleChange("email")}
                   />
                 </Box>
-              </Stack>
+                <Stack>
+                  <Box sx={{ marginBottom: "20px" }}>
+                    <TextField
+                      label="Password"
+                      placeholder="Enter Password"
+                      style={{
+                        width: "100%",
+                        borderRadius: "6px",
+                        boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                      }}
+                      value={values?.password}
+                      error={!!touched.password && !!errors.password}
+                      helperText={
+                        (touched.password && errors && errors.password) || ""
+                      }
+                      onBlur={handleBlur("password")}
+                      onChange={handleChange("password")}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
             </Box>
-          </Box>
-          <Box>
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{ backgroundColor: "#009e74", mt: 2, borderRadius: "8px" }}
-              onClick={() => handleSubmit()}
-            >
-              Sign Up
-            </Button>
-          </Box>
-        </form>
-        <Typography sx={{ mt: 2, textAlign: "center", color: "#999" }}>
-          Already have an account <Button>Sign In</Button>
-        </Typography>
-      </Box>
-    </Container>
+            <Box>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ backgroundColor: "#009e74", mt: 2, borderRadius: "8px" }}
+                onClick={() => handleSubmit()}
+              >
+                Sign Up
+              </Button>
+            </Box>
+          </form>
+          <Typography sx={{ mt: 2, textAlign: "center", color: "#999" }}>
+            Already have an account{" "}
+            <Button onClick={handleSignIn}>Sign In</Button>
+          </Typography>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }
