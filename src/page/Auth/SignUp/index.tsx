@@ -15,6 +15,7 @@ import {
   Grid,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "../../../navigation/appRoutes";
 import TextField from "../../../components/Textfield";
@@ -45,59 +46,66 @@ export default function SignUp() {
     navigate(AppRoutes.LOGIN);
   };
   return (
-    <Grid
-      container
-      spacing={2}
-      justifyContent="center"
-      alignItems="center"
-      sx={{
-        padding: 2,
+    <div
+      style={{
+        backgroundColor: "#1565c0",
+        width: "100%",
       }}
     >
-      <Grid item xs={12} md={5}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "auto",
+        }}
+      >
         <Box
           sx={{
-            bgcolor: "#fff",
-            padding: 4,
-            borderRadius: 3,
+            width: "40%",
           }}
         >
+          <div style={{ display: "flex", justifyContent: "flex-start" }}>
+            <ReceiptIcon sx={{ color: "#fff", fontSize: "45px", mt: 1 }} />
+            <Typography
+              variant="h3"
+              sx={{ color: "#fff", textAlign: "center", fontWeight: "400" }}
+            >
+              BillingSoft.com
+            </Typography>
+          </div>
           <Typography
-            variant="h4"
-            sx={{ color: "black", textAlign: "center", mb: 2 }}
+            sx={{ color: "#fff", fontWeight: "400", marginLeft: "45px" }}
           >
-            Welcome Back to Billing Soft!
-          </Typography>
-          <Typography sx={{ color: "black", textAlign: "center" }}>
             Manage your invoices with ease.
           </Typography>
         </Box>
-      </Grid>
-      <Grid item xs={12} md={5}>
         <Box
           sx={{
             bgcolor: "#fff",
-            padding: 4,
+            padding: 2,
             borderRadius: 3,
             boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
+            m: 2,
+            width: "40%",
           }}
         >
-          <Typography
-            variant="h4"
-            sx={{ color: "black", textAlign: "center", mb: 2 }}
-          >
-            Creat a free account
-          </Typography>
-          <Typography sx={{ color: "#999", textAlign: "center", mb: 2 }}>
-            Gain access to more features with a billing soft account.
-          </Typography>
-
           <form onSubmit={handleSubmit}>
             <Box
               sx={{
                 width: { lg: "100%", xs: "90%" },
               }}
             >
+              <Typography
+                variant="h4"
+                sx={{ textAlign: "center", mb: 2, fontWeight: "400" }}
+              >
+                Creat a free account
+              </Typography>
+              <Typography sx={{ color: "#999", textAlign: "center", mb: 2 }}>
+                Gain access to more features with a billing soft account.
+              </Typography>
               <Box
                 sx={{
                   color: palette.text.secondary,
@@ -111,45 +119,54 @@ export default function SignUp() {
                     color: palette.text.text7,
                   }}
                 >
-                  <Grid container spacing={2}>
-                    <Grid size={6}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "14px",
+                    }}
+                  >
+                    <div>
                       <TextField
-                        label="Frist Name"
+                        label="First Name"
                         placeholder="Enter your first name"
                         style={{
-                          width: "100%",
                           borderRadius: "6px",
                           boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                         }}
                         value={values?.firstName}
                         error={!!touched.firstName && !!errors.firstName}
                         helperText={
-                          (touched.firstName && errors && errors.firstName) ||
-                          ""
+                          touched.firstName && errors.firstName
+                            ? errors.firstName
+                            : " "
                         }
                         onBlur={handleBlur("firstName")}
                         onChange={handleChange("firstName")}
                       />
-                    </Grid>
-                    <Grid size={6}>
+                    </div>
+                    <div>
                       <TextField
                         label="Last Name"
                         placeholder="Enter your last name"
                         style={{
-                          width: "100%",
                           borderRadius: "6px",
                           boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                         }}
                         value={values?.lastName}
                         error={!!touched.lastName && !!errors.lastName}
                         helperText={
-                          (touched.lastName && errors && errors.lastName) || ""
+                          touched.lastName && errors.lastName
+                            ? errors.lastName
+                            : " "
                         }
                         onBlur={handleBlur("lastName")}
                         onChange={handleChange("lastName")}
                       />
-                    </Grid>
-                  </Grid>
+                    </div>
+                  </div>
                 </Box>
                 <Box sx={{ marginBottom: "10px", color: palette.text.text7 }}>
                   <TextField
@@ -162,7 +179,9 @@ export default function SignUp() {
                     }}
                     value={values?.email}
                     error={!!touched.email && !!errors.email}
-                    helperText={(touched.email && errors && errors.email) || ""}
+                    helperText={
+                      touched.email && errors.email ? errors.email : " "
+                    }
                     onBlur={handleBlur("email")}
                     onChange={handleChange("email")}
                   />
@@ -180,7 +199,9 @@ export default function SignUp() {
                       value={values?.password}
                       error={!!touched.password && !!errors.password}
                       helperText={
-                        (touched.password && errors && errors.password) || ""
+                        touched.password && errors.password
+                          ? errors.password
+                          : " "
                       }
                       onBlur={handleBlur("password")}
                       onChange={handleChange("password")}
@@ -193,19 +214,19 @@ export default function SignUp() {
               <Button
                 fullWidth
                 variant="contained"
-                sx={{ backgroundColor: "#009e74", mt: 2, borderRadius: "8px" }}
+                sx={{ backgroundColor: "#009e74", borderRadius: "8px" }}
                 onClick={() => handleSubmit()}
               >
                 Sign Up
               </Button>
             </Box>
           </form>
-          <Typography sx={{ mt: 2, textAlign: "center", color: "#999" }}>
-            Already have an account{" "}
+          <Typography sx={{textAlign: "center", color: "#999" }}>
+            Already have an account
             <Button onClick={handleSignIn}>Sign In</Button>
           </Typography>
         </Box>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 }
