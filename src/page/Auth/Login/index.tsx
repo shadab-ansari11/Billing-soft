@@ -21,7 +21,6 @@ import AppRoutes from "../../../navigation/appRoutes";
 import TextField from "../../../components/Textfield";
 import palette from "../../../theme/palette";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-
 const initialValues: ILoginRequest = {
   email: "",
   password: "",
@@ -70,155 +69,175 @@ export default function Login() {
 
   return (
     <>
-      <div
-        style={{
+      <Box
+        sx={{
           backgroundColor: "#1565c0",
-          height: "100vh",
           width: "100%",
+          height: "100vh",
         }}
       >
-        <div
-          style={{
-            display: "flex",
+        <Box
+          sx={{
+            display: { lg: "flex", sm: "block", xs: "blcok" },
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
+            overflow: "auto",
           }}
         >
           <Box
             sx={{
-              width: "40%",
+              display: "block",
+              width: { lg: "40%", sm: "100%", xs: "100%", md: "100%" },
             }}
           >
-            <div style={{ display: "flex", justifyContent: "flex-start" }}>
-              <ReceiptIcon sx={{ color: "#fff", fontSize: "45px", mt:1}}/>
-            <Typography
-              variant="h3"
-              sx={{ color: "#fff", textAlign: "center", fontWeight: "400" }}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: {
+                  lg: "flex-start",
+                  sm: "center",
+                  md: "center",
+                },
+                justifyItems: { lg: "flex-start", sm: "center", md: "center" },
+              }}
             >
-              BillingSoft.com
-            </Typography>
-            </div>
-            <Typography sx={{ color: "#fff",fontWeight: "400",marginLeft: "45px" }}>
-              Manage your invoices with ease.
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              bgcolor: "#fff",
-              padding: 4,
-              borderRadius: 3,
-              boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
-              mt: 2,
-              width: "40%",
-            }}
-          >
-            {/* Rest of your Sign In form remains unchanged */}
-            <form onSubmit={handleSubmit}>
-              <Box
+              <ReceiptIcon sx={{ color: "#fff", fontSize: "45px", mt: 1 }} />
+              <Typography
+                variant="h3"
+                sx={{ color: "#fff", textAlign: "center", fontWeight: "400" }}
+              >
+                BillingSoft.com
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                justifyContent: "center",
+                justifyItems: "center",
+                marginRight: {
+                  lg: "150px",
+                  sm: "30px",
+                  md: "30px",
+                  xs: "30px",
+                },
+              }}
+            >
+              <Typography
                 sx={{
-                  width: { lg: "100%", xs: "90%" },
+                  color: "#fff",
+                  fontWeight: "400",
+                  justifyContent: "center",
+                  justifyItems: "center",
                 }}
               >
-                  <Typography
-              variant="h4"
-              sx={{ textAlign: "center", mb: 2, fontWeight: "400" }}
+                Manage your invoices with ease.
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: { lg: "40%", sm: "100%", md: "100%", xs: "100%" },
+            }}
+          >
+            <Box
+              sx={{
+                bgcolor: "#fff",
+                padding: 2,
+                borderRadius: 3,
+                boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
+                m: 2,
+                width:"100%",
+              }}
             >
-              Sign In
-            </Typography>
-                <Box sx={{ color: palette.text.secondary }}>
-                  <Box sx={{ marginBottom: "10px", color: palette.text.text7 }}>
-                    <TextField
-                      error={!!touched.email && !!errors.email}
-                      helperText={
-                        touched.email && errors.email ? errors.email : " "
-                      }
-                      label="Email"
-                      placeholder="Enter your email address"
-                      style={{
-                        width: "100%",
-                        borderRadius: "6px",
-                        boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
-                      }}
-                      value={values.email}
-                      onBlur={handleBlur("email")}
-                      onChange={handleChange("email")}
-                    />
-                  </Box>
-                  <Stack>
-                    <Box sx={{ marginBottom: "20px" }}>
+              <form onSubmit={handleSubmit}>
+                <Box>
+                  <Typography
+                    variant="h4"
+                    sx={{ textAlign: "center", mb: 2, fontWeight: "400" }}
+                  >
+                    Sign In
+                  </Typography>
+                  <Box
+                    sx={{
+                      color: palette.text.secondary,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Box
+                      sx={{ marginBottom: "10px", color: palette.text.text7 }}
+                    >
                       <TextField
-                        error={!!touched.password && !!errors.password}
-                        helperText={
-                          touched.password && errors.password
-                            ? errors.password
-                            : " "
-                        }
-                        iconEnd={
-                          <IconButton onClick={handlePasswordToggle}>
-                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                          </IconButton>
-                        }
-                        label="Password"
-                        placeholder="Enter Password"
+                        label="Email"
+                        placeholder="Enter your email address"
                         style={{
                           width: "100%",
                           borderRadius: "6px",
                           boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                         }}
-                        type={showPassword ? "text" : "password"}
-                        value={values.password}
-                        onBlur={handleBlur("password")}
-                        onChange={handleChange("password")}
+                        value={values?.email}
+                        error={!!touched.email && !!errors.email}
+                        helperText={
+                          touched.email && errors.email ? errors.email : " "
+                        }
+                        onBlur={handleBlur("email")}
+                        onChange={handleChange("email")}
                       />
                     </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="flex-end"
-                      alignItems="center"
-                    >
-                      <Link href="#" sx={{ color: "#999" }} underline="none">
-                        Forgot password?
-                      </Link>
-                    </Box>
-                  </Stack>
+                    <Stack>
+                      <Box sx={{ marginBottom: "20px" }}>
+                        <TextField
+                          label="Password"
+                          placeholder="Enter Password"
+                          style={{
+                            width: "100%",
+                            borderRadius: "6px",
+                            boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                          }}
+                          value={values?.password}
+                          error={!!touched.password && !!errors.password}
+                          helperText={
+                            touched.password && errors.password
+                              ? errors.password
+                              : " "
+                          }
+                          onBlur={handleBlur("password")}
+                          onChange={handleChange("password")}
+                        />
+                      </Box>
+                    </Stack>
+                  </Box>
                 </Box>
-              </Box>
-              <Box>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#009e74",
-                    mt: 2,
-                    borderRadius: "8px",
-                  }}
-                  onClick={() => handleSubmit()}
-                >
-                  {isSubmitting ? (
-                    <CircularProgress color="warning" size={22} />
-                  ) : (
-                    "Sign In"
-                  )}
-                </Button>
-              </Box>
-            </form>
-
-            <Button
-              fullWidth
-              // variant="contained"
-              sx={{ mt: 2, borderRadius: "8px", backgroundColor: "red", color: "#fff" }}
-            >
-              <GoogleIcon sx={{ mr: 1, color: "#fff"}} /> Sign in with Google
-            </Button>
-            <Typography sx={{ mt: 2, textAlign: "center", color: "#999" }}>
-              Don't have an account yet?{" "}
-              <Button onClick={handleSignUp}>Sign Up</Button>
-            </Typography>
+                <Box>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#009e74",
+                      mt: 2,
+                      borderRadius: "8px",
+                    }}
+                    onClick={() => handleSubmit()}
+                  >
+                    {isSubmitting ? (
+                      <CircularProgress color="warning" size={22} />
+                    ) : (
+                      "Sign In"
+                    )}
+                  </Button>
+                </Box>
+              </form>
+              <Typography sx={{ textAlign: "center", color: "#999" }}>
+                Already have an account
+                <Button>Sign In</Button>
+              </Typography>
+            </Box>
           </Box>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   );
 }
