@@ -46,15 +46,16 @@ export default function SignUp() {
     navigate(AppRoutes.LOGIN);
   };
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         backgroundColor: "#1565c0",
         width: "100%",
+        height: "100vh",
       }}
     >
-      <div
-        style={{
-          display: "flex",
+      <Box
+        sx={{
+          display: { lg: "flex", sm: "block", xs: "blcok" },
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
@@ -63,10 +64,17 @@ export default function SignUp() {
       >
         <Box
           sx={{
-            width: "40%",
+            display: "block",
+            width: { lg: "40%", sm: "100%", xs: "100%", md: "100%" },
           }}
         >
-          <div style={{ display: "flex", justifyContent: "flex-start" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: { lg: "flex-start", sm: "center", md: "center" },
+              justifyItems: { lg: "flex-start", sm: "center", md: "center" },
+            }}
+          >
             <ReceiptIcon sx={{ color: "#fff", fontSize: "45px", mt: 1 }} />
             <Typography
               variant="h3"
@@ -74,14 +82,21 @@ export default function SignUp() {
             >
               BillingSoft.com
             </Typography>
-          </div>
-          <Typography
-            sx={{ color: "#fff", fontWeight: "400", marginLeft: "45px" }}
+          </Box>
+          <Box
+            sx={{
+              justifyContent: "center",
+              justifyItems: "center",
+              marginRight:{lg:"150px", sm:"30px", md:"30px", xs:"30px"}
+            }}
           >
-            Manage your invoices with ease.
-          </Typography>
+            <Typography sx={{ color: "#fff", fontWeight: "400" ,justifyContent: "center",
+              justifyItems: "center",}}>
+              Manage your invoices with ease.
+            </Typography>
+          </Box>
         </Box>
-        <Box
+        {/* <Box
           sx={{
             bgcolor: "#fff",
             padding: 2,
@@ -89,144 +104,159 @@ export default function SignUp() {
             boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
             m: 2,
             width: "40%",
+            
+          }}
+        > */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <form onSubmit={handleSubmit}>
-            <Box
-              sx={{
-                width: { lg: "100%", xs: "90%" },
-              }}
-            >
-              <Typography
-                variant="h4"
-                sx={{ textAlign: "center", mb: 2, fontWeight: "400" }}
-              >
-                Creat a free account
-              </Typography>
-              <Typography sx={{ color: "#999", textAlign: "center", mb: 2 }}>
-                Gain access to more features with a billing soft account.
-              </Typography>
+          <Box
+            sx={{
+              bgcolor: "#fff",
+              padding: 2,
+              borderRadius: 3,
+              boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
+              m: 2,
+            }}
+          >
+            <form onSubmit={handleSubmit}>
               <Box
-                sx={{
-                  color: palette.text.secondary,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
               >
+                <Typography
+                  variant="h4"
+                  sx={{ textAlign: "center", mb: 2, fontWeight: "400" }}
+                >
+                  Creat a free account
+                </Typography>
+                <Typography sx={{ color: "#999", textAlign: "center", mb: 2 }}>
+                  Gain access to more features with a billing soft account.
+                </Typography>
                 <Box
                   sx={{
-                    marginBottom: "10px",
-                    color: palette.text.text7,
+                    color: palette.text.secondary,
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      gap: "14px",
+                  <Box
+                    sx={{
+                      marginBottom: "10px",
+                      color: palette.text.text7,
                     }}
                   >
-                    <div>
-                      <TextField
-                        label="First Name"
-                        placeholder="Enter your first name"
-                        style={{
-                          borderRadius: "6px",
-                          boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
-                        }}
-                        value={values?.firstName}
-                        error={!!touched.firstName && !!errors.firstName}
-                        helperText={
-                          touched.firstName && errors.firstName
-                            ? errors.firstName
-                            : " "
-                        }
-                        onBlur={handleBlur("firstName")}
-                        onChange={handleChange("firstName")}
-                      />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "14px",
+                      }}
+                    >
+                      <div>
+                        <TextField
+                          label="First Name"
+                          placeholder="Enter your first name"
+                          style={{
+                            borderRadius: "6px",
+                            boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                          }}
+                          value={values?.firstName}
+                          error={!!touched.firstName && !!errors.firstName}
+                          helperText={
+                            touched.firstName && errors.firstName
+                              ? errors.firstName
+                              : " "
+                          }
+                          onBlur={handleBlur("firstName")}
+                          onChange={handleChange("firstName")}
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          label="Last Name"
+                          placeholder="Enter your last name"
+                          style={{
+                            borderRadius: "6px",
+                            boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                          }}
+                          value={values?.lastName}
+                          error={!!touched.lastName && !!errors.lastName}
+                          helperText={
+                            touched.lastName && errors.lastName
+                              ? errors.lastName
+                              : " "
+                          }
+                          onBlur={handleBlur("lastName")}
+                          onChange={handleChange("lastName")}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <TextField
-                        label="Last Name"
-                        placeholder="Enter your last name"
-                        style={{
-                          borderRadius: "6px",
-                          boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
-                        }}
-                        value={values?.lastName}
-                        error={!!touched.lastName && !!errors.lastName}
-                        helperText={
-                          touched.lastName && errors.lastName
-                            ? errors.lastName
-                            : " "
-                        }
-                        onBlur={handleBlur("lastName")}
-                        onChange={handleChange("lastName")}
-                      />
-                    </div>
-                  </div>
-                </Box>
-                <Box sx={{ marginBottom: "10px", color: palette.text.text7 }}>
-                  <TextField
-                    label="Email"
-                    placeholder="Enter your email address"
-                    style={{
-                      width: "100%",
-                      borderRadius: "6px",
-                      boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
-                    }}
-                    value={values?.email}
-                    error={!!touched.email && !!errors.email}
-                    helperText={
-                      touched.email && errors.email ? errors.email : " "
-                    }
-                    onBlur={handleBlur("email")}
-                    onChange={handleChange("email")}
-                  />
-                </Box>
-                <Stack>
-                  <Box sx={{ marginBottom: "20px" }}>
+                  </Box>
+                  <Box sx={{ marginBottom: "10px", color: palette.text.text7 }}>
                     <TextField
-                      label="Password"
-                      placeholder="Enter Password"
+                      label="Email"
+                      placeholder="Enter your email address"
                       style={{
                         width: "100%",
                         borderRadius: "6px",
                         boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                       }}
-                      value={values?.password}
-                      error={!!touched.password && !!errors.password}
+                      value={values?.email}
+                      error={!!touched.email && !!errors.email}
                       helperText={
-                        touched.password && errors.password
-                          ? errors.password
-                          : " "
+                        touched.email && errors.email ? errors.email : " "
                       }
-                      onBlur={handleBlur("password")}
-                      onChange={handleChange("password")}
+                      onBlur={handleBlur("email")}
+                      onChange={handleChange("email")}
                     />
                   </Box>
-                </Stack>
+                  <Stack>
+                    <Box sx={{ marginBottom: "20px" }}>
+                      <TextField
+                        label="Password"
+                        placeholder="Enter Password"
+                        style={{
+                          width: "100%",
+                          borderRadius: "6px",
+                          boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
+                        }}
+                        value={values?.password}
+                        error={!!touched.password && !!errors.password}
+                        helperText={
+                          touched.password && errors.password
+                            ? errors.password
+                            : " "
+                        }
+                        onBlur={handleBlur("password")}
+                        onChange={handleChange("password")}
+                      />
+                    </Box>
+                  </Stack>
+                </Box>
               </Box>
-            </Box>
-            <Box>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{ backgroundColor: "#009e74", borderRadius: "8px" }}
-                onClick={() => handleSubmit()}
-              >
-                Sign Up
-              </Button>
-            </Box>
-          </form>
-          <Typography sx={{textAlign: "center", color: "#999" }}>
-            Already have an account
-            <Button onClick={handleSignIn}>Sign In</Button>
-          </Typography>
+              <Box>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  sx={{ backgroundColor: "#009e74", borderRadius: "8px" }}
+                  onClick={() => handleSubmit()}
+                >
+                  Sign Up
+                </Button>
+              </Box>
+            </form>
+            <Typography sx={{ textAlign: "center", color: "#999" }}>
+              Already have an account
+              <Button onClick={handleSignIn}>Sign In</Button>
+            </Typography>
+          </Box>
         </Box>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
