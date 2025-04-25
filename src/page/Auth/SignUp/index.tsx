@@ -96,17 +96,6 @@ export default function SignUp() {
             </Typography>
           </Box>
         </Box>
-        {/* <Box
-          sx={{
-            bgcolor: "#fff",
-            padding: 2,
-            borderRadius: 3,
-            boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
-            m: 2,
-            width: "40%",
-            
-          }}
-        > */}
         <Box
           sx={{
             display: "flex",
