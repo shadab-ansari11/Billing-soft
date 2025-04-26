@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Google as GoogleIcon } from "@mui/icons-material";
 import {
-  Container,
   Typography,
-  FormLabel,
-  FormControlLabel,
-  Checkbox,
   Button,
   Link,
   Stack,
