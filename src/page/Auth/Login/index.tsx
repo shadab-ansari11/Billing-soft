@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Google as GoogleIcon } from "@mui/icons-material";
 import {
-  Container,
   Typography,
-  FormLabel,
-  FormControlLabel,
-  Checkbox,
   Button,
   Link,
   Stack,
@@ -28,6 +23,7 @@ const initialValues: ILoginRequest = {
 
 export default function Login() {
   const navigate = useNavigate();
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);  
   const { tryLogin } = useAdminLogin();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -42,6 +38,8 @@ export default function Login() {
           setLoading(false);
           navigate(AppRoutes.DASHBOARD);
         }, 3000);
+      } else {
+        setLoading(false); // <- Move this here too
       }
     } catch (error: any) {
       console.log("error-->", error);
