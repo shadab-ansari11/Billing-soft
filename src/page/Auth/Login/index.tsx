@@ -149,7 +149,7 @@ export default function Login() {
                 borderRadius: 3,
                 boxShadow: "0px 6px 24px rgba(0, 0, 0, 0.2)",
                 m: 2,
-                width:"100%",
+                width: "100%",
               }}
             >
               <form onSubmit={handleSubmit}>
@@ -190,6 +190,21 @@ export default function Login() {
                     <Stack>
                       <Box sx={{ marginBottom: "20px" }}>
                         <TextField
+                          error={!!touched.password && !!errors.password}
+                          helperText={
+                            touched.password && errors.password
+                              ? errors.password
+                              : " "
+                          }
+                          iconEnd={
+                            <IconButton onClick={handlePasswordToggle}>
+                              {showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          }
                           label="Password"
                           placeholder="Enter Password"
                           style={{
@@ -197,16 +212,20 @@ export default function Login() {
                             borderRadius: "6px",
                             boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                           }}
-                          value={values?.password}
-                          error={!!touched.password && !!errors.password}
-                          helperText={
-                            touched.password && errors.password
-                              ? errors.password
-                              : " "
-                          }
+                          type={showPassword ? "text" : "password"}
+                          value={values.password}
                           onBlur={handleBlur("password")}
                           onChange={handleChange("password")}
                         />
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="flex-end"
+                        alignItems="center"
+                      >
+                        <Link href="#" sx={{ color: "#999" }} underline="none">
+                          Forgot password?
+                        </Link>
                       </Box>
                     </Stack>
                   </Box>
@@ -230,9 +249,9 @@ export default function Login() {
                   </Button>
                 </Box>
               </form>
-              <Typography sx={{ textAlign: "center", color: "#999" }}>
-                Already have an account
-                <Button>Sign In</Button>
+              <Typography sx={{ mt: 2, textAlign: "center", color: "#999" }}>
+                Don't have an account yet?{" "}
+                <Button onClick={handleSignUp}>Sign Up</Button>
               </Typography>
             </Box>
           </Box>
