@@ -1,3 +1,3 @@
 import React, {lazy} from 'react';
 
-export const Dashboard = lazy(()=>import('../../components/Dashboard'))
+export const Dashboard = lazy(()=>import('../../page/Admin/Dashboard'))
