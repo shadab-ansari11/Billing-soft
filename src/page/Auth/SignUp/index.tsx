@@ -87,11 +87,17 @@ export default function SignUp() {
             sx={{
               justifyContent: "center",
               justifyItems: "center",
-              marginRight:{lg:"150px", sm:"30px", md:"30px", xs:"30px"}
+              marginRight: { lg: "150px", sm: "30px", md: "30px", xs: "30px" },
             }}
           >
-            <Typography sx={{ color: "#fff", fontWeight: "400" ,justifyContent: "center",
-              justifyItems: "center",}}>
+            <Typography
+              sx={{
+                color: "#fff",
+                fontWeight: "400",
+                justifyContent: "center",
+                justifyItems: "center",
+              }}
+            >
               Manage your invoices with ease.
             </Typography>
           </Box>
@@ -113,8 +119,7 @@ export default function SignUp() {
             }}
           >
             <form onSubmit={handleSubmit}>
-              <Box
-              >
+              <Box>
                 <Typography
                   variant="h4"
                   sx={{ textAlign: "center", mb: 2, fontWeight: "400" }}
@@ -235,7 +240,7 @@ export default function SignUp() {
                   sx={{ backgroundColor: "#009e74", borderRadius: "8px" }}
                   onClick={() => handleSubmit()}
                 >
-                  Sign Up
+                  Register
                 </Button>
               </Box>
             </form>
