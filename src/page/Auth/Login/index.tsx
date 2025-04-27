@@ -16,6 +16,7 @@ import AppRoutes from "../../../navigation/appRoutes";
 import TextField from "../../../components/Textfield";
 import palette from "../../../theme/palette";
 import ReceiptIcon from "@mui/icons-material/Receipt";
+import { Google as GoogleIcon } from "@mui/icons-material";
 const initialValues: ILoginRequest = {
   email: "",
   password: "",
@@ -23,7 +24,7 @@ const initialValues: ILoginRequest = {
 
 export default function Login() {
   const navigate = useNavigate();
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);  
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const { tryLogin } = useAdminLogin();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -156,7 +157,7 @@ export default function Login() {
                     variant="h4"
                     sx={{ textAlign: "center", mb: 2, fontWeight: "400" }}
                   >
-                    Sign In
+                    Log In
                   </Typography>
                   <Box
                     sx={{
@@ -242,11 +243,23 @@ export default function Login() {
                     {isSubmitting ? (
                       <CircularProgress color="warning" size={22} />
                     ) : (
-                      "Sign In"
+                      "Log In"
                     )}
                   </Button>
                 </Box>
               </form>
+              <Button
+                fullWidth
+                // variant="contained"
+                sx={{
+                  mt: 2,
+                  borderRadius: "8px",
+                  backgroundColor: "red",
+                  color: "#fff",
+                }}
+              >
+                <GoogleIcon sx={{ mr: 1, color: "#fff" }} /> Sign in with Google
+              </Button>
               <Typography sx={{ mt: 2, textAlign: "center", color: "#999" }}>
                 Don't have an account yet?{" "}
                 <Button onClick={handleSignUp}>Sign Up</Button>
