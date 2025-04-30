@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import Header from "common/Header";
-import Footer from "common/Footer";
 import { Box, Button, Typography } from "@mui/material";
 import MyInvoice from "./Component/MyInvoice";
+import DashboardLayout from "../../../components/DashboardContainer";
 function Dashboard() {
   const [showContent, setShowContent] = useState(false); // yeh state banayi
   const handleButtonClick = () => {
     setShowContent(true); // button click par true kar denge
   };
   return (
-    <Box>
-      <Header />
+    <DashboardLayout>
       {!showContent && <MyInvoice handleButtonClick={handleButtonClick} />}
       {showContent && (
         <Box
@@ -45,9 +43,7 @@ function Dashboard() {
           </Box>
         </Box>
       )}
-
-      {/* <Footer/> */}
-    </Box>
+    </DashboardLayout>
   );
 }
 
