@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 
-const MyInvoice = ({ handleButtonClick }) => {
+const MyInvoice = ({ handleButtonClick }: any) => {
   return (
     <Box
       sx={{

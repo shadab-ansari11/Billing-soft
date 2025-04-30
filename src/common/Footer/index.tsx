@@ -15,7 +15,7 @@ const Footer = () => {
   const linkData = ["Invoice Guide", "Help", "Release Notes", "Developer API"];
 
   return (
-    <Box sx={{ flexGrow: 1, mt: 2 }}>
+    <Box sx={{ position: "absolute", bottom: "0px", width: "100%"}}>
       <AppBar
         position="static"
         sx={{ backgroundColor: "#fff", color: "black"}}
