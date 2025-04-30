@@ -1,148 +1,155 @@
 import React, { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  IconButton,
+  MenuItem,
+  Menu,
+  Link,
+  Grid,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import { Link } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import SunnyIcon from "@mui/icons-material/Sunny";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import LanguageIcon from "@mui/icons-material/Language";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import Grid from "@mui/material/Grid";
 import { logout } from "../../redux/user/auth";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import AppRoutes from "navigation/appRoutes";
 
 const Header = () => {
-  const [anchorEl, setAnchorEl] = useState<any>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [modeIcon, setModeIcon] = useState(true);
-  const dispatch = useDispatch();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const handleMenu = (event: any) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  //light and dark mode function
-  const handleMode = () => {
-    setModeIcon(!modeIcon);
-  };
 
-  const handleClose = () => {
+  const handleClose = () => setAnchorEl(null);
+  const handleLogout = () => {
+    dispatch(logout());
     setAnchorEl(null);
   };
-  const handlLogout = () => {
-    dispatch(logout());
-  };
+
+  const handleMode = () => setModeIcon(!modeIcon);
+  const toggleDrawer = (open: boolean) => () => setDrawerOpen(open);
+
+  const drawerContent = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List>
+        <ListItem
+          component="button"
+          onClick={() => navigate(AppRoutes.DASHBOARD)}
+        >
+          <ListItemText primary="My Invoice" />
+        </ListItem>
+        <ListItem component="button">
+          <ListItemText primary="Settings" />
+        </ListItem>
+        <ListItem component="button">
+          <ListItemText primary="Profile" />
+        </ListItem>
+        <ListItem component="button">
+          <ListItemText primary="My account" />
+        </ListItem>
+        <ListItem component="button" onClick={handleLogout}>
+          <ListItemText primary="Log out" />
+        </ListItem>
+      </List>
+    </Box>
+  );
 
   return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <AppBar
-            position="static"
-            sx={{ backgroundColor: "#fff", color: "black" }}
-          >
-            <Toolbar style={{
-              padding: "0px",
-
-            }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  width: "90%",
-                  margin: "0 auto",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "#fff", color: "black" }}
+      >
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton size="large">
+              <ReceiptIcon sx={{ color: "#009e74" }} />
+            </IconButton>
+            <Typography variant="h6" sx={{ mr: 3 }}>
+              Billing Soft
+            </Typography>
+            {!isMobile && (
+              <>
+                <Link
+                  href={AppRoutes.DASHBOARD}
+                  sx={{ mr: 2, textDecoration: "none" }}
                 >
-                  <IconButton size="large">
-                    <ReceiptIcon sx={{ color: "#009e74" }} />
-                  </IconButton>
-                  <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginRight: 5 }}>
-                    Billing Soft
-                  </Typography>
-                  <Link
-                    onClick={handlLogout}
-                    href="#"
-                    sx={{ textDecoration: "none", marginRight: 2 }}
-                  >
-                    My Invoice
-                  </Link>
-                  <Link
-                    href="#"
-                    sx={{ textDecoration: "none", marginRight: 2 }}
-                  >
-                    Settings
-                  </Link>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "flex-end",
-                    justifyContent: "end",
-                  }}
+                  My Invoice
+                </Link>
+                <Link href="#" sx={{ mr: 2, textDecoration: "none" }}>
+                  Settings
+                </Link>
+              </>
+            )}
+          </Box>
+
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton color="inherit">
+              <LanguageIcon />
+            </IconButton>
+            <IconButton onClick={handleMode} color="inherit">
+              {modeIcon ? <SunnyIcon /> : <BedtimeIcon />}
+            </IconButton>
+            {!isMobile ? (
+              <>
+                <IconButton onClick={handleMenu} color="inherit">
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                  anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                  transformOrigin={{ vertical: "top", horizontal: "right" }}
                 >
-                  <IconButton
-                    size="large"
-                    aria-label="toggle theme mode"
-                    color="inherit"
-                  >
-                    <LanguageIcon />
-                  </IconButton>
-                  <IconButton
-                    size="large"
-                    aria-label="toggle theme mode"
-                    onClick={handleMode}
-                    color="inherit"
-                  >
-                    {modeIcon ? <SunnyIcon /> : <BedtimeIcon />}
-                  </IconButton>
-
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                  </Menu>
-                </Box>
-              </Box>
-            </Toolbar>
-          </AppBar>
-        </Grid>
-      </Box>
-    </>
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <>
+                <IconButton
+                  edge="end"
+                  color="inherit"
+                  onClick={toggleDrawer(true)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Drawer
+                  anchor="right"
+                  open={drawerOpen}
+                  onClose={toggleDrawer(false)}
+                >
+                  {drawerContent}
+                </Drawer>
+              </>
+            )}
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 

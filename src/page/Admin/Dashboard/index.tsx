@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Header from "common/Header";
-import { Box, Button } from "@mui/material";
-
+import Footer from "common/Footer";
+import { Box, Button, Typography } from "@mui/material";
+import MyInvoice from "./Component/MyInvoice";
 function Dashboard() {
   const [showContent, setShowContent] = useState(false); // yeh state banayi
   const handleButtonClick = () => {
@@ -10,35 +11,27 @@ function Dashboard() {
   return (
     <Box>
       <Header />
-      {!showContent && (
-        <Box
-          sx={{
-            backgroundColor: "yellow",
-            width: "100%",
-            height: "40vh",
-          }}
-        >
-          <Button onClick={handleButtonClick}>New Invoice</Button>
-        </Box>
-      )}
+      {!showContent && <MyInvoice handleButtonClick={handleButtonClick} />}
       {showContent && (
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "flex-start",
             width: "90%",
-            margin: "0 auto",
+            margin: "20px auto",
+            gap: 2,
           }}
         >
           <Box
             sx={{
               width: "70%",
               backgroundColor: "red",
-              marginRight: "8px",
             }}
           >
-            <h1>Dashboard</h1>
+            <Typography variant="h4" color="white">
+              Dashboard
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -46,10 +39,14 @@ function Dashboard() {
               backgroundColor: "green",
             }}
           >
-            <h1>Right</h1>
+            <Typography variant="h4" color="white">
+              Right
+            </Typography>
           </Box>
         </Box>
       )}
+
+      {/* <Footer/> */}
     </Box>
   );
 }
