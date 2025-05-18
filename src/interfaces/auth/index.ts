@@ -1,7 +1,6 @@
-export interface ILogin {
+export interface ILoginRequest {
   email: string;
   password: string;
-  fcmToken?: string;
 }
 
 export interface IForgetPassword {
@@ -11,22 +10,9 @@ export interface IResetPassword {
   email: string;
 }
 
-export interface IFirstStep {
+export interface ISignUpRequest {
   email: string;
-  password: string;
-  roleId?: number | string;
-}
-
-export interface IStudent {
-  email: string;
-  password: string;
-  roleId?: number;
-}
-
-export interface IOrganization {
-  email?: string;
-  password: string;
-  roleId?: number;
   firstName: string;
   lastName: string;
+  password: string;
 }

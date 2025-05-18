@@ -1,27 +1,15 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Google as GoogleIcon, Password } from "@mui/icons-material";
-import {
-  Container,
-  Typography,
-  FormLabel,
-  FormControlLabel,
-  Checkbox,
-  Button,
-  Link,
-  Stack,
-  CircularProgress,
-  IconButton,
-  Grid,
-} from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Typography, Button, Stack } from "@mui/material";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "../../../navigation/appRoutes";
 import TextField from "../../../components/Textfield";
 import palette from "../../../theme/palette";
 import useForm from "../SignUp/hooks/useForm";
-import { ISignUpRequest } from "./hooks/useSignuUp";
+import { ISignUpRequest } from "../../../interfaces/auth";
+import useAdminSignUp from "./hooks/useSignuUp";
+
 const initialValues: ISignUpRequest = {
   firstName: "",
   lastName: "",
@@ -30,7 +18,19 @@ const initialValues: ISignUpRequest = {
 };
 export default function SignUp() {
   const navigate = useNavigate();
-  const onSubmit = () => {};
+  const { trySignup } = useAdminSignUp();
+
+  const onSubmit = async (values: ISignUpRequest) => {
+    const res = await trySignup(values);
+    if (res) {
+      console.log("res--")
+      navigate(AppRoutes.LOGIN);
+    } else {
+      console.log("error");
+    }
+
+    // resetForm();
+  };
   const formik = useForm(onSubmit, initialValues);
   const {
     handleBlur,

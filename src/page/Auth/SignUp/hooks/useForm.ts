@@ -4,14 +4,14 @@
 
 import ErrorMessages from "constants/errorMessages";
 import { FormikHelpers, useFormik } from "formik";
-import { IOrganization } from "../../../../interfaces/auth";
+import { ISignUpRequest } from "../../../../interfaces/auth";
 import * as Yup from "yup";
 
-const defaultValues: IOrganization = {
-  email: "",
-  password: "",
+const defaultValues: ISignUpRequest = {
   firstName: "",
   lastName: "",
+  email: "",
+  password: "",
 };
 
 const schema = Yup.object().shape({
@@ -32,12 +32,12 @@ const schema = Yup.object().shape({
 
 const useForm = (
   onSubmit: (
-    values: IOrganization,
-    formikHelpers: FormikHelpers<IOrganization>
+    values: ISignUpRequest,
+    formikHelpers: FormikHelpers<ISignUpRequest>
   ) => void | Promise<unknown>,
-  initialValues: IOrganization = defaultValues
+  initialValues: ISignUpRequest = defaultValues
 ) => {
-  return useFormik<IOrganization>({
+  return useFormik<ISignUpRequest>({
     initialValues,
     enableReinitialize: true,
     validationSchema: schema,
