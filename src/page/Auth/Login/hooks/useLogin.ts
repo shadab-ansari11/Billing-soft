@@ -1,24 +1,23 @@
 import { useDispatch } from "react-redux";
-import { login } from "../../../../redux/user/auth";
+import { setUserCredential } from "../../../../redux/user/auth";
 import client from "../../../../utils/ApiClient";
 import { toast } from "react-toastify";
+import { ILoginRequest } from "../../../../interfaces/auth"
+import { login } from "services/auth.service";
 
-export interface ILoginRequest {
-  email: string;
-  password: string;
-}
+
 const useAdminLogin = () => {
   const dispatch = useDispatch();
   const tryLogin = async (values: ILoginRequest) => {
     // API k userName: john@mail.com
     // API k password changeme
+    // const url = "https://api.escuelajs.co/api/v1/auth/login";
     try {
-      const url = "https://api.escuelajs.co/api/v1/auth/login";
-      const response: any = await client.post(url, values);
-
-      if (response?.data?.access_token) {
+      const response = await login(values);
+      // const response: any = await client.post(url, values);
+      if (response) {
         dispatch(
-          login({
+          setUserCredential({
             userInfo: response.data,
             token: response.data.access_token,
             isLoggedIn: true,

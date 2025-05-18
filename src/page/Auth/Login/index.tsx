@@ -10,11 +10,12 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import useForm from "./hooks/useForm";
-import { useAdminLogin, ILoginRequest } from "./hooks/useLogin";
+import { useAdminLogin } from "./hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "../../../navigation/appRoutes";
 import TextField from "../../../components/Textfield";
 import palette from "../../../theme/palette";
+import { ILoginRequest } from "../../../interfaces/auth"
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import { Google as GoogleIcon } from "@mui/icons-material";
 const initialValues: ILoginRequest = {
@@ -24,11 +25,9 @@ const initialValues: ILoginRequest = {
 
 export default function Login() {
   const navigate = useNavigate();
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const { tryLogin } = useAdminLogin();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [show, setShow] = React.useState(false);
 
   const onSubmit = async (values: ILoginRequest) => {
     setLoading(true);

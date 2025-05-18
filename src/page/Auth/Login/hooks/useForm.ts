@@ -4,10 +4,10 @@
 
 import ErrorMessages from "constants/errorMessages";
 import { FormikHelpers, useFormik } from "formik";
-import { ILogin } from "../../../../interfaces/auth";
+import { ILoginRequest } from "../../../../interfaces/auth";
 import * as Yup from "yup";
 
-const defaultValues: ILogin = {
+const defaultValues: ILoginRequest = {
   email: "",
   password: "",
 };
@@ -22,12 +22,12 @@ const schema = Yup.object().shape({
 
 const useForm = (
   onSubmit: (
-    values: ILogin,
-    formikHelpers: FormikHelpers<ILogin>,
+    values: ILoginRequest,
+    formikHelpers: FormikHelpers<ILoginRequest>,
   ) => void | Promise<unknown>,
-  initialValues: ILogin = defaultValues,
+  initialValues: ILoginRequest = defaultValues,
 ) => {
-  return useFormik<ILogin>({
+  return useFormik<ILoginRequest>({
     initialValues,
     enableReinitialize: true,
     validationSchema: schema,
